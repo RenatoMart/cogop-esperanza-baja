@@ -151,7 +151,6 @@ export const ministries: Ministry[] = [
 			'Clases de la Escuela Bíblica Dominical',
 			'Capacitaciones para maestros y maestras',
 			'Ayuno de maestras y auxiliares',
-			'Reuniones con los padres de los niños de la Escuela Bíblica',
 			'Promoción del SETIDP entre quienes tienen el don de enseñar',
 		],
 	},
