@@ -1,58 +1,64 @@
-# Next.js + TypeScript + Anime.js (60FPS Architecture) 🚀
+# IDP Esperanza Baja – Casa de Gracia
 
-This is a high-performance boilerplate template for building modern web applications using **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and **Anime.js (v4)**.
+Sitio web de la **Iglesia de Dios de la Profecía "Casa de Gracia"**, en La Esperanza (parte baja), Trujillo, Perú. Desde 1971.
 
-Designed with strict Web Vitals and 60FPS animation principles in mind.
+Construido con **Next.js 16 (App Router)**, **React 19**, **TypeScript** y **Tailwind CSS v4**.
 
-## 🌟 Key Features
+## Páginas
 
-- **Strict 60FPS Animations**: Only animates GPU-accelerated properties (`transform` and `opacity`) using Anime.js v4.
-- **Main Thread Protection**: Follows architectural best practices to prevent blocking the main thread.
-- **Hydration Safe**: Configured to prevent React hydration errors gracefully, even with browser extensions.
-- **Tailwind Strict Mode**: Avoids `transition-all` and costly repaints by strictly transitioning necessary properties.
-- **Pre-configured Folder Structure**: Includes `components/ui`, `components/layout`, `hooks`, `types`, and `lib` directories.
+| Ruta                    | Contenido                                                   |
+| ----------------------- | ----------------------------------------------------------- |
+| `/`                     | Inicio: banner, visión y misión, ministerios por edades, ejes y valores |
+| `/nosotros`             | Historia, visión, misión, objetivo general, valores y ejes  |
+| `/ministerios`          | Todos los ministerios, agrupados                            |
+| `/ministerios/[slug]`   | Una página por ministerio, con descripción y actividades    |
+| `/ubicacion`            | Dirección, mapa y campos misioneros                         |
 
-## 📁 Project Structure
+## Empezar
 
 ```bash
-src/
-├── app/             # Next.js App Router (pages, layout, globals.css)
-├── components/      
-│   ├── layout/      # Layout components (Header, Footer, etc.)
-│   └── ui/          # Reusable UI components
-├── hooks/           # Custom React hooks
-├── lib/             # Shared utilities and configurations
-├── types/           # Global TypeScript definitions
-└── utils/           
-    └── anime-runner.ts # Anime.js animation wrappers
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # compilación de producción
+npm run start    # sirve la compilación
+npm run lint     # ESLint
 ```
 
-## 🚀 Getting Started
+Requiere Node.js 20 o superior.
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   # or
-   pnpm install
-   # or
-   yarn install
-   ```
+## Estructura
 
-2. **Run the development server:**
-   ```bash
-   npm run dev
-   ```
+```
+src/
+├── app/           # Rutas (App Router), layout y estilos globales
+├── components/    # Header, Footer, Icon, Reveal y componentes de UI
+└── data/
+    ├── site.ts        # Datos generales: dirección, visión, misión, valores, ejes
+    └── ministries.ts  # Lista de ministerios y sus actividades
+public/images/     # Emblema de la iglesia y logos de ministerios
+```
 
-3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. The main page includes a test component showcasing a strictly composed 60FPS GPU-accelerated animation using Anime.js.
+## Agregar o editar contenido
 
-## 🛠️ Performance Directives
+- **Textos generales** (dirección, visión, misión, valores): `src/data/site.ts`.
+- **Ministerios**: `src/data/ministries.ts`. Cada ministerio tiene `slug`, `short`, `name`, `group`, `tagline`, `description`, `activities` y, opcionalmente, `logo`.
+  - Sin `logo`, la tarjeta muestra el nombre del ministerio en letras.
+  - Para añadir un logo, copia el PNG a `public/images/ministerios/` y pon su ruta en `logo`.
+  - La página del ministerio se crea sola a partir de `slug`.
 
-If you intend to use this template, please adhere to these rendering and animation rules:
+## Diseño
 
-- **Reflows vs Repaints**: NEVER animate layout properties like `width`, `height`, `top`, `left`, `margin`, or `padding`. Always use `transform` (`scale`, `translate`) and `opacity`.
-- **GPU Acceleration**: Make use of Tailwind's `transform-gpu` and `will-change-*` utility classes for frequently animated elements.
-- **Code-Splitting**: Load heavy components dynamically via `next/dynamic` or `React.lazy()` to protect the main thread and achieve a fast LCP (Largest Contentful Paint).
+- Paleta azul marino y dorado, tomada del emblema de la iglesia.
+- Tipografías: Roboto (títulos y texto), Allura (“Casa de Gracia”) y Cormorant Garamond (subtítulos).
+- Animaciones de entrada solo con CSS (`animation-timeline: view()`), sin JavaScript, y desactivadas con `prefers-reduced-motion`.
 
-## 📄 License
+## Docker
 
-MIT License. Feel free to use this boilerplate for your projects!
+```bash
+docker build -t cogop-esperanza-baja .
+docker run -p 3000:3000 cogop-esperanza-baja
+```
+
+## Créditos
+
+Los logos de los ministerios provienen de los recursos oficiales de COGOP Perú ([cogopperu.com/logos](https://cogopperu.com/logos/)) y pertenecen a sus titulares.
